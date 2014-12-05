@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import kr.ac.kaist.hrhrp.security.BatchUserCreator;
+import kr.ac.kaist.hrhrp.security.CustomUserDetails;
 import kr.ac.kaist.hrhrp.security.CustomJdbcUserDetailsManager;
 
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -20,7 +20,7 @@ public class SignUpService {
 	private PasswordEncoder passwordEncoder;
 	
 	public int createUser(String username, String password) {
-		BatchUserCreator newUserCreator = new BatchUserCreator();
+		CustomUserDetails newUserCreator = new CustomUserDetails();
 		newUserCreator.setUsername(username);
 		newUserCreator.setPassword(password);
 		newUserCreator.setEnabled(true);
@@ -40,7 +40,7 @@ public class SignUpService {
 	}
 	
 	public int createUser(String username, String password, HashMap<String, String> optionValue) {
-		BatchUserCreator newUserCreator = new BatchUserCreator();
+		CustomUserDetails newUserCreator = new CustomUserDetails();
 		newUserCreator.setUsername(username);
 		newUserCreator.setPassword(password);
 		newUserCreator.setEnabled(true);

@@ -59,7 +59,7 @@
 </head>
 <body>
 
-	<form action="/kaist/api/signup" method="post" id="join">
+	<form action="api/signup" method="post" id="join">
 		<input type="text" size="20" id="email" name="email" maxlength="100" placeholder="Email"> <br>
 		<input type="password" id="password" name="password" size=20 maxlength="12" placeholder="Password"> <br>
 		<input type="text" id="name" name="name" size=20 maxlength="12" placeholder="Name"> <br>

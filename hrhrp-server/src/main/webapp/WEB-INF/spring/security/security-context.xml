@@ -6,6 +6,7 @@
                         http://www.springframework.org/schema/security
                         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+    <security:http pattern="/login" security="none"></security:http>
 	<security:http pattern="/register" security="none"></security:http>
 	<security:http pattern="/api/signup" security="none"></security:http>
 	<security:http pattern="/api/signin_fail" security="none"></security:http>
@@ -15,6 +16,13 @@
 
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		
+		<security:form-login login-page="/login" 
+					username-parameter="id" 
+					password-parameter="pw"		
+					login-processing-url="/loginProcess"
+					authentication-failure-url="/login"	
+					/>
 	</security:http>
 
 	<security:authentication-manager alias="authenticationManager">

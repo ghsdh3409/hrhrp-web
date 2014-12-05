@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-public class BatchUserCreator {
-	private static Log log = LogFactory.getLog(BatchUserCreator.class);
+public class CustomUserDetails {
+	private static Log log = LogFactory.getLog(CustomUserDetails.class);
 	private CustomJdbcUserDetailsManager userDetailsManager;
 	private SaltSource saltSource = null;
 	private PasswordEncoder passwordEncoder = null;
