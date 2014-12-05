@@ -46,7 +46,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void login(HttpSession session) {
 		logger.info("Welcome login! {}", session.getId());
 	}
