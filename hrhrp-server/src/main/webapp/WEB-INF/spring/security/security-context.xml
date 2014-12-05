@@ -6,6 +6,7 @@
                         http://www.springframework.org/schema/security
                         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<security:http pattern="/register" security="none"></security:http>
 	<security:http pattern="/api/signup" security="none"></security:http>
 	<security:http pattern="/api/signin_fail" security="none"></security:http>
 	<security:http pattern="/api/unsigned" security="none"></security:http>

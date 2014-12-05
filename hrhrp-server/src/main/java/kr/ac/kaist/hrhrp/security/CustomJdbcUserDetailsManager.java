@@ -24,10 +24,10 @@ public class CustomJdbcUserDetailsManager extends JdbcUserDetailsManager {
 			"insert into users (username, password, enabled) values (?,?,?,?)";
 	
 	public static final String DEF_INSERT_CUSTOM_AUTHORITY_SQL =
-			"INSERT INTO user_roles (USER_ID, AUTHORITY) VALUES ((SELECT id FROM users WHERE USERNAME = ?) , ?)";
+			"INSERT INTO user_roles (USER_ID, AUTHORITY) VALUES ((SELECT user_id FROM users WHERE USERNAME = ?) , ?)";
 
 	public static final String DEF_DELETE_CUSTOM_USER_AUTHORITIES_SQL =
-			"DELETE FROM user_roles WHERE user_id = (SELECT id FROM users WHERE USERNAME = ?)";
+			"DELETE FROM user_roles WHERE user_id = (SELECT user_id FROM users WHERE USERNAME = ?)";
 	
 	public static final String DEF_UPDATE_CUSTOM_PASSWORD_SQL =
 			"update users set password = ? where username = ?";

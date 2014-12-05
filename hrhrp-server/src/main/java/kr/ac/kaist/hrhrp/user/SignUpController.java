@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.ac.kaist.hrhrp.security.BatchUserCreator;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
@@ -28,14 +26,14 @@ public class SignUpController {
 	@Resource(name="signUpService")
 	SignUpService signUpService;
 	
-	private static Log log = LogFactory.getLog(BatchUserCreator.class);
+	private static Log log = LogFactory.getLog(RegisterController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws JSONException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping(value = "/api/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/signup", method = RequestMethod.POST)
 	public String signup(Model model, HttpServletRequest request, HttpServletResponse response) throws JSONException, UnsupportedEncodingException {
 
 		request.setCharacterEncoding("UTF-8");
@@ -45,8 +43,8 @@ public class SignUpController {
 		
 		/* Required */
 		String email = request.getParameter("email");
-		String passwd = request.getParameter("passwd");
-		String name = request.getParameter("realname");
+		String passwd = request.getParameter("password");
+		String name = request.getParameter("name");
 	
 		HashMap<String, String> optionValue = new HashMap<String, String>();
 		
