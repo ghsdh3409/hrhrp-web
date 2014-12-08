@@ -1,13 +1,18 @@
 package kr.ac.kaist.hrhrp.image;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +24,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class UploadController {
+	private final static String srcPath = "D:/temp/files/";
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
 	FileMeta fileMeta = null;
 	/***************************************************
-	 * URL: /rest/controller/upload  
+	 * URL: upload  
 	 * upload(): receives files
 	 * @param request : MultipartHttpServletRequest auto passed
 	 * @param response : HttpServletResponse auto passed
@@ -30,7 +36,8 @@ public class UploadController {
 	 ****************************************************/
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	public @ResponseBody LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
-
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
 		try {
 
 			LinkedList<FileMeta> files = new LinkedList<FileMeta>();
@@ -57,12 +64,27 @@ public class UploadController {
 				fileMeta.setFileType(mpf.getContentType());
 				fileMeta.setBytes(mpf.getBytes());
 
-				// copy file to local disk (make sure the path "e.g. D:/temp/files" exists)            
-				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/"+mpf.getOriginalFilename()));
+				Date d = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+				String nowDate =  sdf.format(d);
+				
+				String filePath = srcPath + username + "/" + nowDate + "/";
+
+				System.out.println(filePath);
+
+				// copy file to local disk (make sure the path "e.g. D:/temp/files" exists)     
+
+				File file = new File( filePath );
+
+				if( file.exists() == false ) {
+					file.mkdirs();
+				}
+
+				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(filePath+mpf.getOriginalFilename()));
 
 				//2.4 add to files
 				files.add(fileMeta);
-				
+
 				// result will be like this
 				// [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
 				return files;
