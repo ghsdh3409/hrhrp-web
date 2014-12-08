@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class UploadController {
-	private final static String srcPath = "D:/temp/files/";
+	private final static String srcPath = "D:/HRHRP_TEST/source/";
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
 	FileMeta fileMeta = null;
 	/***************************************************

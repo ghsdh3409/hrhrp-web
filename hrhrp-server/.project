@@ -3,6 +3,8 @@
 	<name>HRHRP-SERVER</name>
 	<comment></comment>
 	<projects>
+		<project>HRHRP</project>
+		<project>FaceRecognition</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
