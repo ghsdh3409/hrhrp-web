@@ -31,42 +31,45 @@ public class UploadController {
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	public @ResponseBody LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
 
-		//1. build an iterator
-		Iterator<String> itr =  request.getFileNames();
-		MultipartFile mpf = null;
+		try {
 
-		//2. get each file
-		while(itr.hasNext()){
+			LinkedList<FileMeta> files = new LinkedList<FileMeta>();
 
-			//2.1 get next MultipartFile
-			mpf = request.getFile(itr.next()); 
-			System.out.println(mpf.getOriginalFilename() +" uploaded! "+files.size());
+			//1. build an iterator
+			Iterator<String> itr =  request.getFileNames();
+			MultipartFile mpf = null;
 
-			//2.2 if files > 10 remove the first from the list
-			if(files.size() >= 10)
-				files.pop();
+			//2. get each file
+			while(itr.hasNext()){
 
-			//2.3 create new fileMeta
-			fileMeta = new FileMeta();
-			fileMeta.setFileName(mpf.getOriginalFilename());
-			fileMeta.setFileSize(mpf.getSize()/1024+" Kb");
-			fileMeta.setFileType(mpf.getContentType());
+				//2.1 get next MultipartFile
+				mpf = request.getFile(itr.next()); 
+				System.out.println(mpf.getOriginalFilename() +" uploaded! "+files.size());
 
-			try {
+				//2.2 if files > 10 remove the first from the list
+				if(files.size() >= 10)
+					files.pop();
+
+				//2.3 create new fileMeta
+				fileMeta = new FileMeta();
+				fileMeta.setFileName(mpf.getOriginalFilename());
+				fileMeta.setFileSize(mpf.getSize()/1024+" Kb");
+				fileMeta.setFileType(mpf.getContentType());
 				fileMeta.setBytes(mpf.getBytes());
 
 				// copy file to local disk (make sure the path "e.g. D:/temp/files" exists)            
 				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/"+mpf.getOriginalFilename()));
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//2.4 add to files
+				files.add(fileMeta);
+				
+				// result will be like this
+				// [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
+				return files;
 			}
-			//2.4 add to files
-			files.add(fileMeta);
+		} catch (Exception e) {
+			e.printStackTrace();	
 		}
-		// result will be like this
-		// [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
 		return files;
 	}
 	/***************************************************
@@ -88,7 +91,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping(value = "/uploader", method = RequestMethod.GET)
 	public String login(HttpSession session) {
 		return "images";
