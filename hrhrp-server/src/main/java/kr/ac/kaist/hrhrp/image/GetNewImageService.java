@@ -46,12 +46,4 @@ public class GetNewImageService {
 		
 		return obj;
 	}
-	
-	/*
-	public JSONObject getNewRelations(String username) {
-		Extractor ex = new Extractor();
-		ArrayList<Person> newPersons = ex.getNewRelations(username);
-		return newPersons;
-	}
-	*/	
 }

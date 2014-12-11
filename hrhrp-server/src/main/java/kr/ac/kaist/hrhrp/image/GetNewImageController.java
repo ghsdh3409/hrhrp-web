@@ -21,7 +21,7 @@ public class GetNewImageController {
 	
 	String groupName = "HRHRP_Test";
 	
-	@RequestMapping(value = "/api/get_new_images", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/new_persons", method = RequestMethod.GET)
 	public String getNewImage(Model model, HttpServletRequest request, HttpServletResponse response) throws JSONException {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
