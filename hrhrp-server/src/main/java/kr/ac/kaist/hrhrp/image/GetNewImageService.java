@@ -27,6 +27,14 @@ public class GetNewImageService {
 				String imgUrl = face.getImgUrl();
 				JSONObject faceObj = new JSONObject();
 				faceObj.put("url", imgUrl);
+				JSONObject posObj = new JSONObject();
+				posObj.put("width", face.getPosition().getWidth());
+				posObj.put("height", face.getPosition().getHeight());
+				JSONObject centerObj = new JSONObject();
+				centerObj.put("x", face.getPosition().getCenterX());
+				centerObj.put("y", face.getPosition().getCenterY());
+				posObj.put("center", centerObj);
+				faceObj.put("position", posObj);
 				facesArr.put(faceObj);
 			}
 			personObj.put("faces", facesArr);
