@@ -20,7 +20,7 @@ public class UpdateNewImageController {
 	@Resource(name="updateNewImageService")
 	UpdateNewImageService updateNewImageService;
 	
-	@RequestMapping(value = "/api/update_person", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/update_person", method = RequestMethod.POST)
 	public String getNewImage(Model model, HttpServletRequest request, HttpServletResponse response) throws JSONException, UnsupportedEncodingException {
 		JSONObject obj = new JSONObject();
 		
@@ -73,7 +73,7 @@ public class UpdateNewImageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			obj.put("code", 1);
+			obj.put("code", 0);
 			obj.put("msg", e.getMessage());
 			
 			model.addAttribute("updatePersonResult", obj.toString());
