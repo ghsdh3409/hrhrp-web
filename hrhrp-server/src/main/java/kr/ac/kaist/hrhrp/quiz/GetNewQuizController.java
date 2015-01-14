@@ -19,7 +19,7 @@ public class GetNewQuizController {
 	@Resource(name="getNewQuizService")
 	GetNewQuizService getNewQuizService;
 	
-	@RequestMapping(value = "/api/new_quiz", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/get_quiz", method = RequestMethod.GET)
 	public String getNewImage(Model model, HttpServletRequest request, HttpServletResponse response) throws JSONException {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
@@ -30,6 +30,6 @@ public class GetNewQuizController {
 		JSONObject newQuizObj = getNewQuizService.getNewQuiz(username);
 		
 		model.addAttribute("newQuiz", newQuizObj.toString());
-		return "quiz";
+		return "get_quiz";
 	}
 }

@@ -17,7 +17,7 @@ public class GetNewQuizService {
 		JSONObject obj = new JSONObject();
 		JSONArray quizArr = new JSONArray();
 
-		QuizGetter quizGetter = new QuizGetter();
+		QuizManager quizGetter = new QuizManager();
 		ArrayList<Quiz> newQuizes = quizGetter.getQuizes(username);
 
 		for (Quiz quiz : newQuizes) {
@@ -54,6 +54,7 @@ public class GetNewQuizService {
 				JSONObject selObj = new JSONObject();
 
 				selObj.put("selection", sel.getSelection());
+				selObj.put("type", sel.getSelectionType());
 				
 				Face selFace = sel.getSelectionFace();
 				if (selFace != null) {
@@ -72,12 +73,14 @@ public class GetNewQuizService {
 				selectionsArr.put(selObj);
 			}
 
-			quizObj.put("selection", selectionsArr);
-
+			quizObj.put("selections", selectionsArr);
+			
+			quizObj.put("answer", quiz.getAnswer());
+			
 			quizArr.put(quizObj);
 		}
 
-		obj.put("Quizes", quizArr);
+		obj.put("quiz", quizArr);
 
 		return obj;
 	}
