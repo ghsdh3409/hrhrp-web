@@ -7,12 +7,8 @@
 <html>
 <head>
 
-	<style>
-		div {background-size: contain;}
-	</style>
-
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script	src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
+	<script	src="resources/maphilight/jquery.maphilight.js"></script>
 	<script type="text/javascript">
 		
 		var personIdx = 0;
@@ -31,7 +27,7 @@
 					var face = faces[i];
 					var url = face["url"];
 
-					$("#quizDIV").html("<img class='map' id='map' usemap='#face' src='" + url + "'><br>");
+					$("#quizDIV").html("<img class='map' id='map' usemap='#face' src='" + url + "' width='250' height='250'><br>");
 					
 					var position = face["position"];
 					
@@ -101,7 +97,7 @@
 				
 				$("#quizDIV").html(quiz_text + "<br>");
 				if (quiz_image != null) {
-					$("#quizDIV").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "'><br>");
+					$("#quizDIV").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "' width='250' height='250'><br>");
 				
 					var position = quiz_info["position"];
 					
@@ -141,7 +137,7 @@
 					var optionHtml = "";					
 					if (type == "image") {
 						
-						$("#inputDIV").append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width='175' height='250'>" );
+						$("#inputDIV").append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width='250' height='250'>" );
 						
 						var position = selection["position"];
 						
