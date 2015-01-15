@@ -51,7 +51,7 @@
 				$filelist = $(".demo .filelist.complete");
 				$(".demo .dropped").dropper({
 					action: "upload",
-					maxSize: 1048576
+					maxSize: 5242880
 				}).on("start.dropper", onStart)
 				  .on("complete.dropper", onComplete)
 				  .on("fileStart.dropper", onFileStart)

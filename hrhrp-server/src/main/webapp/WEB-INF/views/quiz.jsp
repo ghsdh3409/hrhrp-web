@@ -7,8 +7,14 @@
 <html>
 <head>
 
-	<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<style>
+		div {background-size: contain;}
+	</style>
+
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script	src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
 	<script type="text/javascript">
+		
 		var personIdx = 0;
 		var personList = [];
 		var quizList = [];
@@ -18,13 +24,40 @@
 			if (personIdx < personList.length) {		
 				var person = personList[personIdx];
 				var personId = person["person_id"];
-				
+								
 				var faces = person["faces"];
 
 				for (var i=0; i<faces.length; i++) {
 					var face = faces[i];
 					var url = face["url"];
-					$("#quizDIV").html("<img src='" + url + "'>");
+
+					$("#quizDIV").html("<img class='map' id='map' usemap='#face' src='" + url + "'><br>");
+					
+					var position = face["position"];
+					
+					var center_x = position["center"]["x"] / 100.0;
+					var center_y = position["center"]["y"] / 100.0;
+					var width = position["width"] / 100.0;
+					var height = position["height"] / 100.0;
+	
+					var img = document.getElementById('map'); 
+					var img_width = img.clientWidth;
+					var img_height = img.clientHeight;
+					
+					var x1 = (img_width * center_x) - (img_width * width / 2);
+					var y1 = (img_height * center_y) - (img_height * height / 2);
+					var x2 = (img_width * center_x) + (img_width * width / 2);
+					var y2 = (img_height * center_y) + (img_height * height / 2);
+								
+					var posHtml =
+						"<map name='face'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
+
+						$("#quizDIV").append(posHtml);
+						
+						$(function() {
+					        $('.map').maphilight();
+					    });
+					
 				}
 				personIdx = personIdx + 1;
 				if (personIdx <= personList.length) {
@@ -54,7 +87,7 @@
 			quizList = data["quiz"];
 			getQuiz();
 		}
-		
+				
 		function getQuiz() {
 			if (quizIdx < quizList.length) {		
 				var quiz = quizList[quizIdx];
@@ -67,9 +100,35 @@
 				var answer = quiz["answer"];
 				
 				$("#quizDIV").html(quiz_text + "<br>");
-				if (quiz_image != null)
-					$("#quizDIV").append("<img src='" + quiz_image + "'><br>");
+				if (quiz_image != null) {
+					$("#quizDIV").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "'><br>");
+				
+					var position = quiz_info["position"];
+					
+					var center_x = position["center_x"] / 100.0;
+					var center_y = position["center_y"] / 100.0;
+					var width = position["width"] / 100.0;
+					var height = position["height"] / 100.0;
+	
+					var img = document.getElementById('map'); 
+					var img_width = img.clientWidth;
+					var img_height = img.clientHeight;
+					
+					var x1 = (img_width * center_x) - (img_width * width / 2);
+					var y1 = (img_height * center_y) - (img_height * height / 2);
+					var x2 = (img_width * center_x) + (img_width * width / 2);
+					var y2 = (img_height * center_y) + (img_height * height / 2);
+								
+					var posHtml =
+						"<map name='face'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
+
+						$("#quizDIV").append(posHtml);
 						
+						$(function() {
+					        $('.map').maphilight();
+					    });
+						
+				}
 				$("#inputDIV").html("<input type='hidden' id='quiz_id' value='" + quizId + "'>");
 				
 				var selections = quiz["selections"];
@@ -81,11 +140,42 @@
 					
 					var optionHtml = "";					
 					if (type == "image") {
-						optionHtml = "<img src='" + option + "'>";
+						
+						$("#inputDIV").append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width='175' height='250'>" );
+						
+						var position = selection["position"];
+						
+						if (position != null) {
+						
+							var center_x = position["center_x"] / 100.0;
+							var center_y = position["center_y"] / 100.0;
+							var width = position["width"] / 100.0;
+							var height = position["height"] / 100.0;
+											
+							var img = document.getElementById('selImg_' + i); 
+							var img_width = img.clientWidth;
+							var img_height = img.clientHeight;
+								
+							var x1 = (img_width * center_x) - (img_width * width / 2);
+							var y1 = (img_height * center_y) - (img_height * height / 2);
+							var x2 = (img_width * center_x) + (img_width * width / 2);
+							var y2 = (img_height * center_y) + (img_height * height / 2);
+											
+							var posHtml =
+								"<map name='faceSel_" + i + "'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
+	
+							$("#inputDIV").append(posHtml);
+									
+							$(function() {
+								$('.map').maphilight();
+							});
+						
+						}
+						
 					} else {
 						optionHtml = option;
 					} 
-					
+														
 					$("#inputDIV").append("<input type='radio' name='selection' value=" + optionNum + ">" + optionHtml);
 				}
 				
@@ -106,7 +196,6 @@
 			var selection = $(':input[name=selection]:radio:checked').val();
 			
 			if( selection ) {
-				alert(quizId);
 				if (selection == answer) {
 					alert(selection + "을 선택했습니다. 정답입니다.");
 				} else {
@@ -125,9 +214,6 @@
 			var personRelation = $("#person_relation").val();
 			var personId = $("#person_id").val();
 			if (personName.length > 0 && personRelation.length > 0) {
-				alert(personName);
-				alert(personRelation);
-				alert(personId);
 				updatePersonInfo(personName, personRelation, personId);
 			} else {
 				alert("사진속 인물의 이름과 본인과의 관계를 입력해주세요.");
@@ -199,6 +285,7 @@
 		}
 		
 		$(document).ready(getNewPersonList());
+				
 	</script>
 
 
