@@ -23,11 +23,13 @@
 								
 				var faces = person["faces"];
 
+				$("#quizDIV").html("다음사람의 이름과 본인과의 관계는 무엇입니까?" + "<br>");
+				
 				for (var i=0; i<faces.length; i++) {
 					var face = faces[i];
 					var url = face["url"];
 
-					$("#quizDIV").html("<img class='map' id='map' usemap='#face' src='" + url + "' width='250' height='250'><br>");
+					$("#quizDIV").append("<img class='map' id='map' usemap='#face' src='" + url + "' width='250' height='250'><br>");
 					
 					var position = face["position"];
 					
