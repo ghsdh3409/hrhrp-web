@@ -25,12 +25,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/HRHRP"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/FaceRecognition"/>
 	<classpathentry kind="lib" path="/FaceRecognition/libs/faceppsdk_min.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/HRHRP"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

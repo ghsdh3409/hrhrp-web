@@ -18,6 +18,7 @@ public class GetNewImageService {
 		JSONObject obj = new JSONObject();
 		JSONArray personArr = new JSONArray();
 		Extractor ex = new Extractor();
+		
 		ArrayList<Person> newPersons = ex.getNewPersons(username);
 		
 		for (Person person : newPersons) {
