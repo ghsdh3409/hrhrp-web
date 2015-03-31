@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -8,6 +12,23 @@
 
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
+		<!-- Bootstrap -->
+		<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		    <![endif]-->
+		<!-- 
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+		<script src="resources/maphilight/jquery.maphilight.js"></script>
+		
+		
+		
 		<!-- Modernizer -->
 		<!-- <script src="resources/dropper/modernizr.js"></script> -->
 		
@@ -108,12 +129,16 @@
 	</head>
 
 	<body class="gridlock demo">
+	
+		<div class="container">
+			<div class="page-header" id="pageTitleDIV"><h3>사진 업로드</h3></div>
+			<div class="panel panel-primary">
+			
+				<div id="quizDIV" class="panel-heading">촬영된 일상의 사진을 업로드 해주세요.</div>
+				<div id="inputDIV" class="panel-body">
+				
 			<article class="row page">
 			<div class="mobile-full tablet-full desktop-8 desktop-push-2">
-				<header class="header">
-					<h1>Upload Images</h1>
-					<br>
-				</header>
 
 				<!--[DEMO:START-CONTENT]-->
 
@@ -121,10 +146,10 @@
 					<div class="dropped"></div>
 
 					<div class="filelists">
-						<h5>Complete</h5>
+						<div class="page-header"><h5>완료된 목록</h5></div>
 						<ol class="filelist complete">
 						</ol>
-						<h5>Queued</h5>
+						<div class="page-header"><h5>진행중 목록</h5></div>
 						<ol class="filelist queue">
 						</ol>
 					</div>
@@ -134,6 +159,15 @@
 
 			</div>
 		</article>
+				
+				</div>
+			
+			</div>
+			
+			<div id="nextDIV"></div>
+		</div>
+	
+
 
 	</body>
 </html>
