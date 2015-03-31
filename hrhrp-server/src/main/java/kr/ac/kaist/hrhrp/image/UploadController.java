@@ -87,6 +87,7 @@ public class UploadController {
 
 				// result will be like this
 				// [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
+				
 				return files;
 			}
 		} catch (Exception e) {

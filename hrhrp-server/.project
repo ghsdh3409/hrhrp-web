@@ -5,6 +5,7 @@
 	<projects>
 		<project>HRHRP</project>
 		<project>FaceRecognition</project>
+		<project>opencvtest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
