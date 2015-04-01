@@ -13,6 +13,7 @@
 	<security:http pattern="/api/unsigned" security="none"></security:http>
 	<security:http pattern="/api/exist_user" security="none"></security:http>
 	<security:http pattern="/api/init_pw" security="none"></security:http>
+	<security:http pattern="/resources/**" security="none"></security:http>
 
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/**" access="ROLE_USER" />

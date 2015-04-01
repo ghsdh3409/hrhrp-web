@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,20 +34,20 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = null;
+		if (auth != null) {
+			username = auth.getName();
+		}
+		logger.info("Welcome login! {}", username);
+		model.addAttribute("username", username);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "login";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void login(HttpSession session) {
+	public void login(Model model, HttpSession session) { // If a type of method is void, a url is same to view name.
 		logger.info("Welcome login! {}", session.getId());
 	}
 	
