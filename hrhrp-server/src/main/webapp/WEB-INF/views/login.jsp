@@ -63,17 +63,18 @@
 				<%
 				} else {
 				%>
-				<form class="navbar-form navbar-right" method="post"
-					action="loginProcess">
+				<form class="navbar-form navbar-right" method="post" action="loginProcess">
 					<div class="form-group">
 						<input type="text" placeholder="Email" class="form-control"
-							name="id">
+							name="email_signin">
 					</div>
 					<div class="form-group">
 						<input type="password" placeholder="Password" class="form-control"
-							name="pw">
+							name="password_signin">
 					</div>
-					<button type="submit" class="btn btn-success">로그인</button>
+				
+					<a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a>
+
 				</form>
 				<%
 				}
@@ -83,6 +84,9 @@
 		</div>
 		</nav>
 
+		<div id="warningDIV" class="alert alert-warning" role="alert" style="display:none;">
+		</div>
+			
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container">
@@ -98,15 +102,15 @@
 				<div class="col-md-4 collapse-group">		
 					<form class="collapse" method="post" action="<c:url value='/api/signup'/>" id="viewdetails">
 						<div class="form-group">
-							<input type="text" placeholder="Email" class="form-control" name="id">
+							<input type="text" placeholder="Email" class="form-control" name="email_signup">
 						</div>
 						<div class="form-group">
-							<input type="name" placeholder="Name" class="form-control" name="name">
+							<input type="text" placeholder="Name" class="form-control" name="name_signup">
 						</div>
 						<div class="form-group">
-							<input type="password" placeholder="Password" class="form-control" name="pw">
+							<input type="password" placeholder="Password" class="form-control" name="password_signup">
 						</div>
-						<button type="submit" class="btn btn-success">회원가입</button>
+						<a href='#' class='btn btn-success' role='button' onclick='requestSignUp()'>회원가입</a>
 					</form>	
 				</div>
 				<%
@@ -163,6 +167,102 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+	function requestSignUp() {
+		$("#warningDIV").hide();
+		
+		 var email = $('input:text[name="email_signup"]').val();
+		 var name = $('input:text[name="name_signup"]').val();
+		 var password = $('input:password[name="password_signup"]').val();
+		 
+		 if (email == null || email.length == 0) {
+			 $("#warningDIV").html("이메일을 입력해 주세요.");
+			 $("#warningDIV").show();
+		 } else if (name == null || name.length == 0) {
+			 $("#warningDIV").html("이름을 입력해 주세요.");
+			 $("#warningDIV").show();
+		 } else if (password == null || password.length == 0) {
+			 $("#warningDIV").html("비밀번호를 입력해 주세요.");
+			 $("#warningDIV").show();
+		 } else {
+			 $.ajax({
+				  type: "POST",
+				  url: 'api/signup',
+				  data: {
+					  "email": email,
+					  "password":password,
+					  "name": name
+				  },
+				  success: function(data) {
+					  var msg = data["msg"];
+					  var code = data["code"];
+					  if (code == "SAME_EMAIL") {
+						  $("#warningDIV").html("동일한 이메일 주소가 존재 합니다.");
+						  $("#warningDIV").show();
+					  } else if (code == "UNKNOWN") {
+						  requestError();
+					  } else if (code == "SUCCESS") {
+						  requestSignInWithParms(email, password);
+					  } else {
+						  $("#warningDIV").html(msg);
+						  $("#warningDIV").show();
+					  }
+				  },
+				  error: requestError,
+				  dataType: 'json'
+			});
+		 }	 
+	}
+	
+	function requestSignIn() {
+		 var email = $('input:text[name="email_signin"]').val();
+		 var password = $('input:password[name="password_signin"]').val();
+		 requestSignInWithParms(email, password);
+	}
+	
+	function requestSignInWithParms(email, password) {
+		$("#warningDIV").hide();	
+		 if (email == null || email.length == 0) {
+			 $("#warningDIV").html("이메일을 입력해 주세요.");
+			 $("#warningDIV").show();
+		 } else if (password == null || password.length == 0) {
+			 $("#warningDIV").html("비밀번호를 입력해 주세요.");
+			 $("#warningDIV").show();
+		 } else {
+			 $.ajax({
+				  type: "POST",
+				  url: "loginProcess",
+				  data: {
+					  "id": email,
+					  "pw": password,
+				  },
+				  success: function(data) {
+					
+					 var msg = data["err_msg"];
+					 if (msg == false) {
+						 var url = data["target_url"];
+						 location.href = url;
+					  } else if (msg.indexOf("BadCredentialsException") != -1) {
+						  $("#warningDIV").html("아이디와 비밀번호를 확인해주세요.");
+						  $("#warningDIV").show();
+					  } else {
+						  $("#warningDIV").html(msg);
+						  $("#warningDIV").show();
+					  }		  
+				  },
+				  error: requestError,
+				  dataType: 'json'
+			});
+		 }	 
+	}
+	
+	function requestError(xhr,err) {
+		$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + xhr.responseText);
+		$("#warningDIV").show();
+	}
+	
+	</script>
 
 </body>
 </html>

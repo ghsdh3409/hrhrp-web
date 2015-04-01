@@ -22,10 +22,13 @@
 					username-parameter="id" 
 					password-parameter="pw"		
 					login-processing-url="/loginProcess"
-					authentication-failure-url="/api/signin_fail"	
+					authentication-failure-url="/api/signin_fail"
+					authentication-success-handler-ref="signinSuccessHandler"	
 					/>
 	</security:http>
 
+	<bean id="signinSuccessHandler" class="kr.ac.kaist.hrhrp.user.SigninSuccessHandler" />
+	
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider
 			user-service-ref="jdbcUserService" />

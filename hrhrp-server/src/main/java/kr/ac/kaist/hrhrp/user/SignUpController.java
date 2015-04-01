@@ -51,7 +51,8 @@ public class SignUpController {
 		if (email == null || email.length() < 1) {
 			email="";
 			JSONObject obj = new JSONObject();
-			obj.put("err_msg", "There is not email parameter");
+			obj.put("code", "NO_EMAIL");
+			obj.put("msg", "There is not email parameter");
 			
 			model.addAttribute("signUpResult", obj.toString());
 			return "signup";
@@ -60,7 +61,8 @@ public class SignUpController {
 		if (passwd == null || passwd.length() < 1) {
 			passwd="";
 			JSONObject obj = new JSONObject();
-			obj.put("err_msg", "There is not password parameter");
+			obj.put("code", "NO_PASSWORD");
+			obj.put("msg", "There is not password parameter");
 			
 			model.addAttribute("signUpResult", obj.toString());
 			return "signup";
@@ -69,7 +71,8 @@ public class SignUpController {
 		if (name == null || name.length() < 1) {
 			name="";
 			JSONObject obj = new JSONObject();
-			obj.put("err_msg", "There is no realname parameter");
+			obj.put("code", "NO_NAME");
+			obj.put("msg", "There is no realname parameter");
 			
 			model.addAttribute("signUpResult", obj.toString());
 			return "signup";
@@ -92,18 +95,21 @@ public class SignUpController {
 		
 		if (createResult == 0) {
 			JSONObject obj = new JSONObject();
+			obj.put("code", "SAME_EMAIL");
 			obj.put("err_msg", "Same email address exists already.");
 			
 			model.addAttribute("signUpResult", obj.toString());
 		} else if (createResult == 1) {
 		
 			JSONObject obj = new JSONObject();
+			obj.put("code", "SUCCESS");
 			obj.put("msg", "Registration Success.");
 				
 			model.addAttribute("signUpResult", obj.toString());
 				
 		} else {
 			JSONObject obj = new JSONObject();
+			obj.put("code", "UNKNOWN");
 			obj.put("err_msg", "Unknown Error.");
 			
 			model.addAttribute("signUpResult", obj.toString());
