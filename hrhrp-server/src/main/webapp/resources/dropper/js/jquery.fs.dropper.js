@@ -23,7 +23,7 @@
 
 	var options = {
 			action: "",
-			label: "Drag and drop files or click to select",
+			label: "파일을 끌어 놓거나, 여기를 클릭하여 파일을 선택하세요.",
 			maxQueue: 2,
 			maxSize: 5242880, // 5 mb
 			postData: {},
