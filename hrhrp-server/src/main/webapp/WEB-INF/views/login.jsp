@@ -63,9 +63,12 @@
 								name="password_signin">
 						</div>			
 						<!-- <a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a> -->
+						<input type="checkbox" id="j_remember" name="_spring_security_remember_me" value="Yes" style="display:none;" checked>
 						<button type="submit" class="btn btn-success">로그인</button> 
 					</form>
 				</security:authorize>
+				
+				<!-- http://outbottle.com/spring-3-security-custom-login-form-with-remember-me/ -->
 				
 				<security:authorize access="isAuthenticated()">
 					<ul class="nav navbar-nav navbar-right">

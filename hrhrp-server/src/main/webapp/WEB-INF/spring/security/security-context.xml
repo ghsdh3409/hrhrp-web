@@ -23,8 +23,8 @@
 		<security:form-login login-page="/login" 
 					username-parameter="email_signin" 
 					password-parameter="password_signin"	
-					authentication-failure-handler-ref="authenticationFailureHandler"
-					/>
+					authentication-failure-handler-ref="authenticationFailureHandler" />
+		<security:remember-me key="myAppKey" token-validity-seconds="864000" />
 	</security:http>
 	
 	<bean id="authenticationFailureHandler"
