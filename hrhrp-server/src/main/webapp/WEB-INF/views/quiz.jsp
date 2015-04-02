@@ -322,7 +322,6 @@
 					var optionHtml = "";
 								
 					if (type == "image") {
-						if (option != "http://default.image.url") {
 							$("#inputDIV").append("<div class='col-md-3'><a href='#' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'><div class='thumbnail' id ='optionThumb_" + i +"'></div></a></div>");
 							var div_width = $("#optionThumb_" + i).width();
 							var div_height = $("#optionThumb_" + i).height();
@@ -367,7 +366,6 @@
 									$('.map').maphilight();
 								});
 							}
-						}
 
 					} else {
 						if (option != null) {
