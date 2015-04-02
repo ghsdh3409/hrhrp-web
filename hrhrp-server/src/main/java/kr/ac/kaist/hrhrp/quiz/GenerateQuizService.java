@@ -17,16 +17,14 @@ public class GenerateQuizService {
 			quizCnt = guizGen.generateQuizset(quizNum, username);
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			quizCnt = -1;
-			
 		}
 		
 					
 		JSONObject obj = new JSONObject();
 		
-		if (quizNum > -1) {
+		if (quizCnt > -1) {
 			obj.put("quizCnt", quizCnt);
 			obj.put("isSuccess", true);
 		} else {
