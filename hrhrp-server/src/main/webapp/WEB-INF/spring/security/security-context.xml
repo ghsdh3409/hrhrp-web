@@ -24,7 +24,7 @@
 					username-parameter="email_signin" 
 					password-parameter="password_signin"	
 					authentication-failure-handler-ref="authenticationFailureHandler" />
-		<security:remember-me key="myAppKey" token-validity-seconds="864000" />
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="864000" user-service-ref="jdbcUserService" />
 	</security:http>
 	
 	<bean id="authenticationFailureHandler"
