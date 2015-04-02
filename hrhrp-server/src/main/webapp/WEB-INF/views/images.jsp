@@ -146,8 +146,8 @@
 
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="quiz">Upload<span class="sr-only">(current)</span></a></li>
-					<li><a href="uploader">Quiz</a></li>					
+					<li class="active"><a href="uploader">Upload<span class="sr-only">(current)</span></a></li>
+					<li><a href="quiz">Quiz</a></li>					
 				</ul>
 
 				<security:authorize access="!isAuthenticated()">
