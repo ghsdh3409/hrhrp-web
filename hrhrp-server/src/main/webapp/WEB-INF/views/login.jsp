@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false" pageEncoding="UTF-8"
 	contentType="text/html; charset=UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,7 +32,6 @@
 <body>
 
 	<div class="container">
-
 		<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -43,42 +42,37 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">HRHRP</a>
+				<a class="navbar-brand" href="<c:url value="/" />">HRHRP</a>
 			</div>
 
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Upload</a></li>
-					<li class="active"><a href="#">Quiz <span class="sr-only">(current)</span></a></li>
+					<security:authorize access="isAuthenticated()">
+						<li><a href="uploader">Upload</a></li>
+						<li><a href="quiz">Quiz</a></li>
+					</security:authorize>
 				</ul>
-
-				<%		
-				String username = (String) request.getAttribute("username");
-				if (username != null) {						
-				%>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="j_spring_security_logout" />">${username}</a>
-					</li>
-				</ul>
-				<%
-				} else {
-				%>
-				<form class="navbar-form navbar-right" method="post" action="loginProcess">
-					<div class="form-group">
-						<input type="text" placeholder="Email" class="form-control"
-							name="email_signin">
-					</div>
-					<div class="form-group">
-						<input type="password" placeholder="Password" class="form-control"
-							name="password_signin">
-					</div>
+				<security:authorize access="!isAuthenticated()">
+					<form class="navbar-form navbar-right" method="post" action="loginProcess">
+						<div class="form-group">
+							<input type="text" placeholder="Email" class="form-control"
+								name="email_signin">
+						</div>
+						<div class="form-group">
+							<input type="password" placeholder="Password" class="form-control"
+								name="password_signin">
+						</div>			
+						<a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a>
+					</form>
+				</security:authorize>
 				
-					<a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a>
+				<security:authorize access="isAuthenticated()">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="<c:url value="j_spring_security_logout" />"><security:authentication property="principal.username" /></a>
+						</li>
+					</ul>
+				</security:authorize>
 
-				</form>
-				<%
-				}
-				%>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
@@ -95,9 +89,8 @@
 					일상으로부터 당신의 기억을 지켜내세요. <br /> 본 서비스는 회상요법을 통해서 치매를 예방하고 환자의 상태를 호전
 					시킬 수 있습니다.
 				</p>
-				<%		
-				if (username == null) {						
-				%>
+
+				<security:authorize var="permitAll" access="!isAuthenticated()">
 				<p><a class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#viewdetails">가입하기 &raquo;</a></p>
 				<div class="col-md-4 collapse-group">		
 					<form class="collapse" method="post" action="<c:url value='/api/signup'/>" id="viewdetails">
@@ -113,9 +106,7 @@
 						<a href='#' class='btn btn-success' role='button' onclick='requestSignUp()'>회원가입</a>
 					</form>	
 				</div>
-				<%
-				}
-				%>
+				</security:authorize>
 
 			</div>
 		</div>
@@ -131,7 +122,9 @@
 						있습니다. <br /> <br /> <br /> <br />
 					</p>
 					<p>
-						<a class="btn btn-default" href="#" role="button">바로가기 &raquo;</a>
+						<security:authorize access="isAuthenticated()">
+							<a class="btn btn-default" href="uploader" role="button">바로가기 &raquo;</a>
+						</security:authorize>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -147,7 +140,9 @@
 						할 수 있도록 도움을 줍니다. 사용자가 퀴즈를 풀었던 정보를 기록하여, 상대적으로 회상 능력이 약한 부분을 향상 시킬
 						수 있는 퀴즈를 제공합니다.</p>
 					<p>
-						<a class="btn btn-default" href="#" role="button">바로가기 &raquo;</a>
+						<security:authorize access="isAuthenticated()">
+							<a class="btn btn-default" href="quiz" role="button">바로가기 &raquo;</a>
+						</security:authorize>
 					</p>
 				</div>
 			</div>

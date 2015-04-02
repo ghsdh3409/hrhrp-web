@@ -22,16 +22,13 @@ public class SigninSuccessHandler extends SavedRequestAwareAuthenticationSuccess
          response.setContentType("application/json");
          response.setCharacterEncoding("utf-8");
          String defaultUrl = this.getDefaultTargetUrl();
-         String redirectUrl = request.getParameter(this.getTargetUrlParameter());
+         String redirectUrl = request.getHeader("REFERER");
          String targetUrl = defaultUrl;
-
-         if (redirectUrl != null) {
-        	 targetUrl = redirectUrl;
-         }
+         String contextPath = request.getContextPath();
          
-         targetUrl = request.getContextPath() + targetUrl;
+         logger.info(redirectUrl);
          
-         logger.info(targetUrl);
+         targetUrl = contextPath + targetUrl;
          
          String data = StringUtils.join(new String[] {
               " {\"err_msg\" : false, \"target_url\" : \"" + targetUrl +"\" } "
