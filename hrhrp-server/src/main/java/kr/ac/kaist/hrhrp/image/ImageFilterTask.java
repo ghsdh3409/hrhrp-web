@@ -9,13 +9,13 @@ import kr.ac.kaist.hrhrp.ImageFilter;
 
 public class ImageFilterTask extends TimerTask {
 
-	ImageFilter imageFilter = new ImageFilter();
-	Extractor extractor = new Extractor();
-
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 
+		ImageFilter imageFilter = new ImageFilter();
+		Extractor extractor = new Extractor();
+		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 

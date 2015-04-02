@@ -68,7 +68,7 @@ public class UploadController {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String nowDate =  sdf.format(d);
 				
-				String filePath = srcPath + username + "/" + nowDate + "/";
+				String filePath = srcPath + username + "/";
 
 				System.out.println(filePath);
 

@@ -16,11 +16,11 @@ public class ImageFilterBackgroundService {
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 				
 		if (4 < hour && hour <= 23) {
-			cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 12, 42, 0);
+			cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 4, 0, 0);
 		} else {
-			cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 12, 42, 0);
+			cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE) + 1, 4, 0, 0);
 		}
-		
+		//timer.scheduleAtFixedRate(imageFilterTask, 1000, 1000*60*3);
 		timer.schedule(imageFilterTask, new Date(cal.getTimeInMillis()), 24*60*60*1000);
 		System.out.println("IMAGEFILTER_TEST_START");
 	}
