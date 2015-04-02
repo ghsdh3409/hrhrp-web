@@ -53,7 +53,7 @@
 					</security:authorize>
 				</ul>
 				<security:authorize access="!isAuthenticated()">
-					<form class="navbar-form navbar-right" method="post" action="loginProcess">
+					<form class="navbar-form navbar-right" method="post" action="j_spring_security_check">
 						<div class="form-group">
 							<input type="text" placeholder="Email" class="form-control"
 								name="email_signin">
@@ -62,7 +62,8 @@
 							<input type="password" placeholder="Password" class="form-control"
 								name="password_signin">
 						</div>			
-						<a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a>
+						<!-- <a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a> -->
+						<button type="submit" class="btn btn-success">로그인</button> 
 					</form>
 				</security:authorize>
 				
@@ -79,8 +80,9 @@
 		</nav>
 
 		<div id="warningDIV" class="alert alert-warning" role="alert" style="display:none;">
+
 		</div>
-			
+
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container">
@@ -256,6 +258,30 @@
 		$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + xhr.responseText);
 		$("#warningDIV").show();
 	}
+	
+	function GetURLParameter(sParam) {
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) {
+	            return sParameterName[1];
+	        }
+	    }
+	}
+	
+	function showErrorMessage() {
+		var error = GetURLParameter('error');
+		if (error == "badCredentials") {
+			$("#warningDIV").html("아이디와 비밀번호를 확인해주세요.");
+			$("#warningDIV").show();
+		} else if (error != null) {
+			$("#warningDIV").html(error);
+			$("#warningDIV").show();
+		}
+	}
+
+	$(document).ready(showErrorMessage());
 	
 	</script>
 
