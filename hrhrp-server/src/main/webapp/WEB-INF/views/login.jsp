@@ -177,13 +177,13 @@
 		 var password = $('input:password[name="password_signup"]').val();
 		 
 		 if (email == null || email.length == 0) {
-			 $("#warningDIV").html("이메일을 입력해 주세요.");
+			 $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> 이메일을 입력해 주세요.");
 			 $("#warningDIV").show();
 		 } else if (name == null || name.length == 0) {
-			 $("#warningDIV").html("이름을 입력해 주세요.");
+			 $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> 이름을 입력해 주세요.");
 			 $("#warningDIV").show();
 		 } else if (password == null || password.length == 0) {
-			 $("#warningDIV").html("비밀번호를 입력해 주세요.");
+			 $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> 비밀번호를 입력해 주세요.");
 			 $("#warningDIV").show();
 		 } else {
 			 $.ajax({
@@ -198,14 +198,14 @@
 					  var msg = data["msg"];
 					  var code = data["code"];
 					  if (code == "SAME_EMAIL") {
-						  $("#warningDIV").html("동일한 이메일 주소가 존재 합니다.");
+						  $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> 동일한 이메일 주소가 존재 합니다.");
 						  $("#warningDIV").show();
 					  } else if (code == "UNKNOWN") {
 						  requestError();
 					  } else if (code == "SUCCESS") {
 						  requestSignInWithParms(email, password);
 					  } else {
-						  $("#warningDIV").html(msg);
+						  $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> " + msg);
 						  $("#warningDIV").show();
 					  }
 				  },
@@ -224,10 +224,10 @@
 	function requestSignInWithParms(email, password) {
 		$("#warningDIV").hide();	
 		 if (email == null || email.length == 0) {
-			 $("#warningDIV").html("이메일을 입력해 주세요.");
+			 $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span> 이메일을 입력해 주세요.");
 			 $("#warningDIV").show();
 		 } else if (password == null || password.length == 0) {
-			 $("#warningDIV").html("비밀번호를 입력해 주세요.");
+			 $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span> 비밀번호를 입력해 주세요.");
 			 $("#warningDIV").show();
 		 } else {
 			 $.ajax({
@@ -244,10 +244,10 @@
 						 var url = data["target_url"];
 						 location.href = url;
 					  } else if (msg.indexOf("BadCredentialsException") != -1) {
-						  $("#warningDIV").html("아이디와 비밀번호를 확인해주세요.");
+						  $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span> 아이디와 비밀번호를 확인해주세요.");
 						  $("#warningDIV").show();
 					  } else {
-						  $("#warningDIV").html(msg);
+						  $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span>" + msg);
 						  $("#warningDIV").show();
 					  }		  
 				  },
@@ -258,7 +258,7 @@
 	}
 	
 	function requestError(xhr,err) {
-		$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + xhr.responseText);
+		$("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span> 요청 실패! 다시 시도해주세요. " + xhr.responseText);
 		$("#warningDIV").show();
 	}
 	
@@ -276,10 +276,10 @@
 	function showErrorMessage() {
 		var error = GetURLParameter('error');
 		if (error == "badCredentials") {
-			$("#warningDIV").html("아이디와 비밀번호를 확인해주세요.");
+			$("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> <span class=\"sr-only\"></span> 아이디와 비밀번호를 확인해주세요.");
 			$("#warningDIV").show();
 		} else if (error != null) {
-			$("#warningDIV").html(error);
+			$("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> " + error);
 			$("#warningDIV").show();
 		}
 	}
