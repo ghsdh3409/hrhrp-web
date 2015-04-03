@@ -170,6 +170,13 @@
 	
 		<div class="container">
 			<div class="page-header" id="pageTitleDIV"><h3>사진 업로드</h3></div>
+			
+			<div class="alert alert-warning" role="alert">
+			  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			  <span class="sr-only"></span>
+			  이미지가 정방향으로 촬영 되었는지 확인해주세요. 사진이 정방향이 아닐 경우 분석이 되지 않습니다.
+			</div>
+			
 			<div class="panel panel-primary">
 			
 				<div id="quizDIV" class="panel-heading">촬영된 일상의 사진을 업로드 해주세요.</div>
