@@ -69,7 +69,12 @@
 		</nav>
 
 		<div id="warningDIV" class="alert alert-warning" role="alert" style="display:none;">
-
+		</div>
+		
+		<div id="pregressDIV" class="progress" style="display:none;">
+		  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+		    <span class="sr-only">100% Complete</span>
+		  </div>
 		</div>
 
 		<div class="container">
@@ -483,15 +488,29 @@
 					relation : personRelation
 				},
 				success : reqPostResponse,
-				error : errorResponse
+				error : errorResponse,
+				beforeSend : showProgressBar,
+				complete : closeProgressBar
 			});
 		}
 
+		function showProgressBar() {
+			$("#pregressDIV").show();
+			$("#warningDIV").html("처리 중 입니다. 잠시만 기다려 주세요.");
+			$("#warningDIV").show();
+		}
+		
+		function closeProgressBar() {
+			$("#pregressDIV").hide();
+			$("#warningDIV").hide();
+		}
+		
 		function reqPostResponse(data) {
 			if (data["code"] == 1) {
 				getPerson();
 			} else {
-				alert(data["msg"]);
+				$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + data["msg"]);
+				$("#warningDIV").show();
 			}
 		}
 
