@@ -68,13 +68,17 @@
 		</div>
 		</nav>
 
+		<div id="warningDIV" class="alert alert-warning" role="alert" style="display:none;">
+
+		</div>
+
 		<div class="container">
 			<div id="infoDIV"></div>
 			<div class="page-header" id="pageTitleDIV"></div>
 			<div class="panel panel-primary">
 	
 				<div id="quizDIV" class="panel-heading"></div>
-				<div id="inputDIV" class="panel-body text-center"></div>
+				<div id="inputDIV" class="panel-body centered text-center"></div>
 	
 			</div>
 	
@@ -116,7 +120,7 @@
 					
 					$("#inputDIV").append("<div id='quizForImgDIV' class='panel-body center-block text-center'></div>");
 					
-					$("#quizForImgDIV").append("<div class='col-md-3 col-md-offset-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
+					$("#quizForImgDIV").append("<div class='col-md-4 col-md-offset-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
 					var div_width = $("#quizImgThumb").width();
 					var div_height = $("#quizImgThumb").height();
 					
@@ -159,10 +163,12 @@
 				}
 				
 				$("#inputDIV")
-				.append(
+				.append("<div class='row'>" +
+						"<div class='col-lg-4 col-lg-offset-4'>" +
+						"<div class='input-group'>" +
 						"<input type='hidden' id='person_id' value='" + personId + "'>" +
-						"<div class='col-lg-3'><input type='text' class='form-control' placeholder='이름' id='person_name'></div>" +
-						"<div class='col-lg-3 btn-group'>" +
+						"<input type='text' class='form-control' placeholder='이름' id='person_name'>" +
+						"<div class='input-group-btn'>" +
 						"<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>" +
 						"관계 <span class='caret'></span>" +
 						"</button>" +
@@ -173,7 +179,8 @@
 						"<li><a href='#' onclick=\"validateInput2('가족', '" + personId + "')\">가족</a></li>" +
 						"<li><a href='#' onclick=\"validateInput2('애인', '" + personId + "')\">애인</a></li>" +
 						"</ul>" +
-						"</div>" );
+						"</div></div></div> <!-- /.col-lg-6 -->" +
+						"</div> <!-- /.row --> ");
 				
 				personIdx = personIdx + 1;
 				
@@ -216,9 +223,8 @@
 				$("#pageTitleDIV").html("<h3>퀴즈 생성</h3>");
 				$("#quizDIV").html("퀴즈 생성 중");
 				$("#inputDIV").html(
-						"<p><img src='resources/image/loader-larger.gif' width=100/></p>" +
-						"<div class=\"alert alert-info\" role=\"alert\">" +
-						"퀴즈를 생성 하는데 실패 하였습니다. <br/> 사진을 업로드 하지 않으셨나요? 사진 분석 은 새벽 4시에 진행됩니다.</div>" );
+						"<div class=\"alert alert-warning\" role=\"alert\">" +
+						"생성된 퀴즈가 없습니다. <br/> 사진을 업로드 하지 않았거나, 아직 분석 중일 수 있습니다.</div>" );
 			}
 		}
 
@@ -266,7 +272,7 @@
 					
 					$("#inputDIV").append("<div id='quizForImgDIV' class='panel-body center-block text-center'></div>");
 										
-					$("#quizForImgDIV").append("<div class='col-md-3 col-md-offset-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
+					$("#quizForImgDIV").append("<div class='col-md-4 col-md-offset-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
 					var div_width = $("#quizImgThumb").width();
 					var div_height = $("#quizImgThumb").height();
 					
@@ -504,8 +510,9 @@
 			getPerson();
 		}
 
-		function errorResponse() {
-			alert("Request Error");
+		function errorResponse(xhr,err) {
+			$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + xhr.responseText);
+			$("#warningDIV").show();
 		}
 
 		$(document).ready(getNewPersonList());
