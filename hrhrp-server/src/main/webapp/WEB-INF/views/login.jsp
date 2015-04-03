@@ -53,7 +53,7 @@
 					</security:authorize>
 				</ul>
 				<security:authorize access="!isAuthenticated()">
-					<form class="navbar-form navbar-right" method="post" action="j_spring_security_check">
+					<form name="loginForm" class="navbar-form navbar-right" method="post" action="j_spring_security_check">
 						<div class="form-group">
 							<input type="text" placeholder="Email" class="form-control"
 								name="email_signin">
@@ -203,7 +203,9 @@
 					  } else if (code == "UNKNOWN") {
 						  requestError();
 					  } else if (code == "SUCCESS") {
-						  requestSignInWithParms(email, password);
+						  document.forms["loginForm"].elements["email_signin"].value = email;
+						  document.forms["loginForm"].elements["password_signin"].value = password;
+						  document.forms["loginForm"].submit();
 					  } else {
 						  $("#warningDIV").html("<span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span> " + msg);
 						  $("#warningDIV").show();
@@ -283,7 +285,7 @@
 			$("#warningDIV").show();
 		}
 	}
-
+	
 	$(document).ready(showErrorMessage());
 	
 	</script>
