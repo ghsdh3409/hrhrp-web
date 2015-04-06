@@ -78,7 +78,7 @@
 		  </div>
 		</div>
 
-		<div class="container">
+		<div id="quizContainer" class="container">
 			<div id="infoDIV"></div>
 			<div class="page-header" id="pageTitleDIV"></div>
 			<div class="panel panel-primary">
@@ -88,12 +88,13 @@
 					<div id="inputDIV" class="row centered text-center"></div>
 					<div id="selectionDIV"></div>
 				</div>
-	
+				
 			</div>
-	
+			<div id="resultDIV"></div>				
 			<div id="nextDIV"></div>
+					
 		</div>
-	</div>
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -104,7 +105,7 @@
 		var personIdx = 0;
 		var personList = [];
 		var quizList = [];
-		var quizIdx = 0;
+		var quizIdx = -1;
 
 		function getPerson() {
 			if (personIdx < personList.length) {
@@ -238,6 +239,44 @@
 			}
 		}
 
+		function getQuizResult() {
+			$.ajax({
+				type : "GET",
+				url : "api/get_quiz_result",
+				dataType : "json",
+				success : reqGetQuizResultResponse,
+				error : errorResponse
+			});
+		}
+		
+		function reqGetQuizResultResponse(data) {
+			quizResultList = data["quiz"];
+			if (quizResultList.length > 0) {
+				$("#resultDIV").html(
+						"<div class=\"panel panel-default\">" +
+				  			"<div class=\"panel-heading\">퀴즈 풀이 결과</div>" +
+				  				"<table id=\"quizResultTable\" class=\"table\">" +
+				  				"<tr id=\"quizResultTableQuizRow\"><td>문제</td></tr>" +
+				  				"<tr id=\"quizResultTableAnswerRow\"><td>정답</td></tr>" +
+							"</table></div>");
+				
+				for (var i=0; i<quizResultList.length; i++) {
+					quizResult = quizResultList[i];
+					var answer = quizResult["answer"];
+					var solved = quizResult["solved"];
+					
+					$("#quizResultTableQuizRow").append("<td>" + (i + 1) + "</td>");
+					if (solved == 0){
+						$("#quizResultTableAnswerRow").append("<td>" + "&nbsp;" + "</td>");
+					} else if (answer == solved) {
+						$("#quizResultTableAnswerRow").append("<td>" + "O" + "</td>");
+					} else {
+						$("#quizResultTableAnswerRow").append("<td>" + "X" + "</td>");
+					}
+				}
+			}		
+		}
+		
 		function getQuizList() {
 			$.ajax({
 				type : "GET",
@@ -247,10 +286,9 @@
 				error : errorResponse
 			});
 		}
-
+		
 		function reqGetQuizResponse(data) {
 			quizList = data["quiz"];
-			
 			if (quizList.length > 0) {
 				getQuiz();
 			} else {
@@ -266,8 +304,12 @@
 			$("#inputDIV").html("");
 			$("#selectionDIV").html("");
 			$("#nextDIV").html("");
+			$("#resultDIV").html("");
 			$("#pageTitleDIV").html("<h3>퀴즈 풀이</h3>");
 			
+			quizIdx = quizIdx + 1;
+			getQuizResult();
+						
 			if (quizIdx < quizList.length) {
 				var quiz = quizList[quizIdx];
 				var quizId = quiz["quiz_id"];
@@ -397,14 +439,13 @@
 					$('.map').maphilight();
 				});
 
-				quizIdx = quizIdx + 1;
-
 			} else {
 				$("#quizDIV").html("모든 퀴즈를 풀었습니다. 수고하셨습니다.");
 				$("#quizForImgDIV").html("");
 				$("#inputDIV").html("");
 				$("#nextDIV").html("");
 				$("#selectionDIV").html("");
+				$("#resultDIV").html("");
 			}
 		}
 
@@ -414,7 +455,7 @@
 			$(".selection_btn").addClass('disabled');
 			if (selection == answer) {
 				$("#selection_btn_" + selection).addClass('btn-primary');
-				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerCorrectDIV\" class=\"alert alert-success\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><strong> 정답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");			
+				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerCorrectDIV\" class=\"alert alert-success\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><strong> 정답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
 			} else {
 				//$("#selection_btn_" + answer).addClass('btn-primary');
 				$("#selection_btn_" + selection).addClass('btn-danger');
@@ -433,7 +474,7 @@
 				$("#warningDIV").show();
 			}
 		}
-		
+				
 		function updateQuizInfo(quizId, solved) {
 			$.ajax({
 				type : "POST",
