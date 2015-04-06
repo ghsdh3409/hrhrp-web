@@ -32,4 +32,18 @@ public class GetNewQuizController {
 		model.addAttribute("newQuiz", newQuizObj.toString());
 		return "get_quiz";
 	}
+	
+	@RequestMapping(value = "/api/get_quiz_result", method = RequestMethod.GET)
+	public String getQuizResult(Model model, HttpServletRequest request, HttpServletResponse response) throws JSONException {
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		
+		JSONObject quizResultObj = getNewQuizService.getQuizResult(username);
+		
+		model.addAttribute("quizResult", quizResultObj.toString());
+		return "get_quiz_result";
+	}
 }
