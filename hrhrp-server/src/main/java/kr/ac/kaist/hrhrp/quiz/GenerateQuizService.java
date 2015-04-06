@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service("generateQuizService")
 public class GenerateQuizService {
-	public JSONObject generateQuiz(int quizNum, String username) throws JSONException {
+	public JSONObject generateQuiz(int quizNum, String username, float personalizedRatio) throws JSONException {
 
 		int quizCnt = -1;
 
 		try {
 
 			QuizGen guizGen = new QuizGen();
-			quizCnt = guizGen.generateQuizset(quizNum, username);
+			quizCnt = guizGen.generateQuizset(quizNum, username, personalizedRatio);
 
 		} catch (Exception e) {
 			e.printStackTrace();
