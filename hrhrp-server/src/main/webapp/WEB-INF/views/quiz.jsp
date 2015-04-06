@@ -84,7 +84,10 @@
 			<div class="panel panel-primary">
 	
 				<div id="quizDIV" class="panel-heading"></div>
-				<div id="inputDIV" class="panel-body centered text-center"></div>
+				<div id="bodyDIV" class="panel-body">
+					<div id="inputDIV" class="row centered text-center"></div>
+					<div id="selectionDIV"></div>
+				</div>
 	
 			</div>
 	
@@ -109,6 +112,7 @@
 				$("#quizDIV").html("");
 				$("#quizForImgDIV").html("");
 				$("#inputDIV").html("");
+				$("#selectionDIV").html("");
 				$("#nextDIV").html("");
 				$("#pageTitleDIV").html("<h3>새롭게 발견된 사람 정보 입력</h3>");
 				
@@ -179,11 +183,11 @@
 						"관계 <span class='caret'></span>" +
 						"</button>" +
 						"<ul class='dropdown-menu' role='menu'>" +
-						"<li><a href='#' onclick=\"validateInput2('본인', '" + personId + "')\">본인</a></li>" +
-						"<li><a href='#' onclick=\"validateInput2('친구', '" + personId + "')\">친구</a></li>" +
-						"<li><a href='#' onclick=\"validateInput2('회사동료', '" + personId + "')\">회사동료</a></li>" +
-						"<li><a href='#' onclick=\"validateInput2('가족', '" + personId + "')\">가족</a></li>" +
-						"<li><a href='#' onclick=\"validateInput2('애인', '" + personId + "')\">애인</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('본인', '" + personId + "')\">본인</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('친구', '" + personId + "')\">친구</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('회사동료', '" + personId + "')\">회사동료</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('가족', '" + personId + "')\">가족</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('애인', '" + personId + "')\">애인</a></li>" +
 						"</ul>" +
 						"</div></div></div> <!-- /.col-lg-6 -->" +
 						"</div> <!-- /.row --> ");
@@ -260,6 +264,7 @@
 			$("#quizDIV").html("");
 			$("#quizForImgDIV").html("");
 			$("#inputDIV").html("");
+			$("#selectionDIV").html("");
 			$("#nextDIV").html("");
 			$("#pageTitleDIV").html("<h3>퀴즈 풀이</h3>");
 			
@@ -346,8 +351,8 @@
 								div_height = div_width;
 							}
 							
-							$("#optionThumb_" + i).append("<a href='#' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'><img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_height + "></a>");// +"<input type='radio' name='selection' value=" + optionNum + ">");
-							$("#optionThumb_" + i).append("<div class='caption'><a href='#' class='btn btn-default btn-block' role='button' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'>" + "선택" + "</a></div>");
+							$("#optionThumb_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_height + ">");
+							$("#optionThumb_" + i).append("<div class='caption'><a id='selection_btn_" + optionNum + "' href='#' class='btn btn-default btn-block selection_btn' role='button' onclick='validateAnswer(" + quizId + ", " + optionNum + ", " + answer + ")'>" + "선택" + "</a></div>");
 							
 							var position = selection["position"];
 	
@@ -383,12 +388,11 @@
 					} else {
 						if (option != null) {
 							optionHtml = option;
-							$("#selectionUL").append("<li><a href='#' class='btn btn-default' role='button' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'>" + optionHtml + "</a></li>");
-							//$("#selectionDIV").append("<a href='#' class='btn btn-default' role='button' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'>" + optionHtml + "</a>");
+							$("#selectionUL").append("<li><a id='selection_btn_" + optionNum + "' href='#' class='btn btn-default selection_btn' role='button' onclick='validateAnswer(" + quizId + ", " + optionNum + ", " + answer + ")'>" + optionHtml + "</a></li>");
 						}
 					}
 				}
-				
+					
 				$(function() {
 					$('.map').maphilight();
 				});
@@ -400,63 +404,36 @@
 				$("#quizForImgDIV").html("");
 				$("#inputDIV").html("");
 				$("#nextDIV").html("");
+				$("#selectionDIV").html("");
 			}
 		}
 
-		function validateAnswer2(quizId, optionNum, answer) {
+		function validateAnswer(quizId, optionNum, answer) {
 			var selection = optionNum;
-
-			if (selection) {
-				if (selection == answer) {
-					alert(selection + "을 선택했습니다. 정답입니다.");
-				} else {
-					alert(selection + "을 선택했습니다. 오답입니다.");
-				}
-				updateQuizInfo(quizId, selection);
-				return true;
+			$("#selectionDIV").html("");
+			$(".selection_btn").addClass('disabled');
+			if (selection == answer) {
+				$("#selection_btn_" + selection).addClass('btn-primary');
+				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerCorrectDIV\" class=\"alert alert-success\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><strong> 정답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");			
 			} else {
-				alert("정답을 선택하세요");
-				return false;
+				//$("#selection_btn_" + answer).addClass('btn-primary');
+				$("#selection_btn_" + selection).addClass('btn-danger');
+				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerIncorrectDIV\" class=\"alert alert-danger\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><strong> 오답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
+			}
+			return true;
+		}
+
+		function validateInput(personRelation, personId) {
+			var personName = $("#person_name").val();
+			if (personName.length > 0 && personRelation.length > 0) {
+				$("#warningDIV").hide();
+				updatePersonInfo(personName, personRelation, personId);
+			} else {
+				$("#warningDIV").html("사진속 인물의 이름과 본인과의 관계를 입력해주세요.");
+				$("#warningDIV").show();
 			}
 		}
 		
-		function validateAnswer(quizId, answer) {
-			var selection = $(':input[name=selection]:radio:checked').val();
-
-			if (selection) {
-				if (selection == answer) {
-					alert(selection + "을 선택했습니다. 정답입니다.");
-				} else {
-					alert(selection + "을 선택했습니다. 오답입니다.");
-				}
-				updateQuizInfo(quizId, selection);
-				return true;
-			} else {
-				alert("정답을 선택하세요");
-				return false;
-			}
-		}
-
-		function validateInput2(personRelation, personId) {
-			var personName = $("#person_name").val();
-			if (personName.length > 0 && personRelation.length > 0) {
-				updatePersonInfo(personName, personRelation, personId);
-			} else {
-				alert("사진속 인물의 이름과 본인과의 관계를 입력해주세요.");
-			}
-		}
-		
-		function validateInput() {
-			var personName = $("#person_name").val();
-			var personRelation = $("#person_relation").val();
-			var personId = $("#person_id").val();
-			if (personName.length > 0 && personRelation.length > 0) {
-				updatePersonInfo(personName, personRelation, personId);
-			} else {
-				alert("사진속 인물의 이름과 본인과의 관계를 입력해주세요.");
-			}
-		}
-
 		function updateQuizInfo(quizId, solved) {
 			$.ajax({
 				type : "POST",
