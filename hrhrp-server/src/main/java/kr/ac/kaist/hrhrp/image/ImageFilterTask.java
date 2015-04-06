@@ -33,6 +33,7 @@ public class ImageFilterTask extends TimerTask {
 		try {
 			System.out.println("START EXTRACTING IMAGE INFO .. ");
 			extractor.extractor();
+			extractor.close();
 			System.out.println("DONE EXTRACTING IMAGE INFO .. ");
 		} catch (Exception e) {
 			e.printStackTrace();

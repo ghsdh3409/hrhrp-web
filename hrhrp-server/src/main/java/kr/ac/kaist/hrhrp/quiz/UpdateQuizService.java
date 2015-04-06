@@ -8,5 +8,6 @@ public class UpdateQuizService {
 		
 		QuizManager quizM = new QuizManager();
 		quizM.updateQuizSolved(quizId, solved);
+		quizM.close();
 	}
 }

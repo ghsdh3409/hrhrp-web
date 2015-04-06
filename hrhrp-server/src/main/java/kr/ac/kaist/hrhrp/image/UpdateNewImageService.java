@@ -10,6 +10,7 @@ public class UpdateNewImageService {
 	
 		Extractor ex = new Extractor();
 		ex.updateNewPersons(ownerId, personId, personName);
+		ex.close();
 
 	}
 	
@@ -17,6 +18,7 @@ public class UpdateNewImageService {
 
 		Extractor ex = new Extractor();
 		ex.updateNewRalations(ownerId, personId, relationShip);
+		ex.close();
 
 	}
 }

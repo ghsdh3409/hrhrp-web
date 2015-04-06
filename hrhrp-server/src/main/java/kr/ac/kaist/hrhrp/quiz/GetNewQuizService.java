@@ -19,6 +19,7 @@ public class GetNewQuizService {
 
 		QuizManager quizGetter = new QuizManager();
 		ArrayList<Quiz> newQuizes = quizGetter.getQuizes(username);
+		quizGetter.close();
 
 		for (Quiz quiz : newQuizes) {
 			JSONObject quizObj = new JSONObject();
@@ -91,6 +92,7 @@ public class GetNewQuizService {
 
 		QuizManager quizGetter = new QuizManager();
 		ArrayList<Quiz> newQuizes = quizGetter.getQuizResult(username);
+		quizGetter.close();
 
 		for (Quiz quiz : newQuizes) {
 			JSONObject quizObj = new JSONObject();
