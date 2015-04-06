@@ -334,7 +334,7 @@
 					var optionHtml = "";
 								
 					if (type == "image") {
-							$("#inputDIV").append("<div class='col-md-3'><a href='#' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'><div class='thumbnail' id ='optionThumb_" + i +"'></div></a></div>");
+							$("#inputDIV").append("<div class='col-md-3'><div class='thumbnail' id ='optionThumb_" + i +"'></div></div>");
 							var div_width = $("#optionThumb_" + i).width();
 							var div_height = $("#optionThumb_" + i).height();
 							
@@ -346,7 +346,8 @@
 								div_height = div_width;
 							}
 							
-							$("#optionThumb_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_height + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+							$("#optionThumb_" + i).append("<a href='#' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'><img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_height + "></a>");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+							$("#optionThumb_" + i).append("<div class='caption'><a href='#' class='btn btn-default btn-block' role='button' onclick='validateAnswer2(" + quizId + ", " + optionNum + ", " + answer + ")'>" + "선택" + "</a></div>");
 							
 							var position = selection["position"];
 	
