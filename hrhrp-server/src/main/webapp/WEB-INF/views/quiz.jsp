@@ -304,7 +304,6 @@
 			$("#inputDIV").html("");
 			$("#selectionDIV").html("");
 			$("#nextDIV").html("");
-			$("#resultDIV").html("");
 			$("#pageTitleDIV").html("<h3>퀴즈 풀이</h3>");
 			
 			quizIdx = quizIdx + 1;
@@ -445,7 +444,6 @@
 				$("#inputDIV").html("");
 				$("#nextDIV").html("");
 				$("#selectionDIV").html("");
-				$("#resultDIV").html("");
 			}
 		}
 
