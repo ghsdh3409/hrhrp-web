@@ -63,8 +63,8 @@ public class UpdateNewImageController {
 		}
 		
 		try {
-			updateNewImageService.updateNewImagePerson(ownerId, personId, personName);
-			updateNewImageService.updateNewImageRelation(ownerId, personId, personRelation);
+			updateNewImageService.updateNewImageRelation(ownerId, personId, personRelation); // IMPORTANT :: Person Id can be changed when updating new image person.
+			updateNewImageService.updateNewImagePerson(ownerId, personId, personName);			
 			
 			obj.put("code", 1);
 			obj.put("msg", "success");
