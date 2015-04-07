@@ -189,6 +189,7 @@
 						"<li><a href='#' onclick=\"validateInput('회사동료', '" + personId + "')\">회사동료</a></li>" +
 						"<li><a href='#' onclick=\"validateInput('가족', '" + personId + "')\">가족</a></li>" +
 						"<li><a href='#' onclick=\"validateInput('애인', '" + personId + "')\">애인</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('교수님', '" + personId + "')\">교수님</a></li>" +
 						"</ul>" +
 						"</div></div></div> <!-- /.col-lg-6 -->" +
 						"</div> <!-- /.row --> ");
