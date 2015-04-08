@@ -8,10 +8,10 @@
         <dependent-module archiveName="HRHRP.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HRHRP/HRHRP">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="opencvtest.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/opencvtest/opencvtest">
+        <dependent-module archiveName="FaceRecognition.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/FaceRecognition/FaceRecognition">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="FaceRecognition.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/FaceRecognition/FaceRecognition">
+        <dependent-module archiveName="opencvtest.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/opencvtest/opencvtest">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 		<property name="java-output-path" value="target/classes"/>

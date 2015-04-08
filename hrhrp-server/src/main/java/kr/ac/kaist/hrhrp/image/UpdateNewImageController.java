@@ -28,9 +28,11 @@ public class UpdateNewImageController {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		
+		String photoId = request.getParameter("photo_id");
 		String personId = request.getParameter("person_id");
 		String personName = request.getParameter("person_name");
 		String personRelation = request.getParameter("relation");
+		String faceId = request.getParameter("face_id");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String ownerId = auth.getName();
@@ -62,9 +64,26 @@ public class UpdateNewImageController {
 			return "update_person";
 		}
 		
+		if (photoId == null) {
+			photoId = "";
+			obj.put("code", 0);
+			obj.put("msg", "There is not photoId parameter.");
+			
+			model.addAttribute("updatePersonResult", obj.toString());
+			return "update_person";
+		}
+		
+		if (faceId == null) {
+			faceId = "";
+			obj.put("code", 0);
+			obj.put("msg", "There is not faceId parameter.");
+			
+			model.addAttribute("updatePersonResult", obj.toString());
+			return "update_person";
+		}
+		
 		try {
-			updateNewImageService.updateNewImageRelation(ownerId, personId, personRelation); // IMPORTANT :: Person Id can be changed when updating new image person.
-			updateNewImageService.updateNewImagePerson(ownerId, personId, personName);			
+			updateNewImageService.updateNewImagePersonRelation(photoId, ownerId, personId, personName, personRelation, faceId);
 			
 			obj.put("code", 1);
 			obj.put("msg", "success");

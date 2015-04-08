@@ -6,18 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Service("updateNewImageService")
 public class UpdateNewImageService {
-	public void updateNewImagePerson(String ownerId, String personId, String personName) {
-	
+	public void updateNewImagePersonRelation(String photoId, String ownerId, String personId, String personName, String relationShip, String faceId) {
 		Extractor ex = new Extractor();
-		ex.updateNewPersons(ownerId, personId, personName);
-		ex.close();
-
-	}
-	
-	public void updateNewImageRelation(String ownerId, String personId, String relationShip) {
-
-		Extractor ex = new Extractor();
-		ex.updateNewRalations(ownerId, personId, relationShip);
+		ex.updateNewPersonRelation(photoId, ownerId, personId, personName, relationShip, faceId);
 		ex.close();
 
 	}

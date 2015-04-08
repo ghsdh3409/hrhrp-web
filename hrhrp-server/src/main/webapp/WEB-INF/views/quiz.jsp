@@ -69,6 +69,9 @@
 		</div>
 		</nav>
 
+		<div id="progressTextDIV" class="alert alert-warning" role="alert" style="display:none;">
+		</div>
+
 		<div id="warningDIV" class="alert alert-warning" role="alert" style="display:none;">
 		</div>
 		
@@ -119,21 +122,29 @@
 				
 				var person = personList[personIdx];
 				var personId = person["person_id"];
-
+				var personName = person["person_name"];
+				var photoId = null;
+				var faceId =null;
+				
 				var faces = person["faces"];
 
 				$("#quizDIV").html("다음사람의 이름과 본인과의 관계는 무엇입니까?" + "<br>");
-
+				
 				for (var i = 0; i < faces.length; i++) {
+					if (i > 0) {
+						break;
+					}
 					var face = faces[i];
 					var url = face["url"];
-
+					photoId = url;
+					faceId = face["face_id"];
 					
-					$("#inputDIV").append("<div id='quizForImgDIV' class='panel-body center-block text-center'></div>");
+					//$("#inputDIV").append("<div id='quizForImgDIV' class='panel-body center-block text-center'></div>");
+					$("#inputDIV").append("<div class='col-md-4 col-md-offset-4'><div class='thumbnail' id ='quizForImgDIV_" + i +"'></div></div>");
 					
-					$("#quizForImgDIV").append("<div class='col-md-4 col-md-offset-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
-					var div_width = $("#quizImgThumb").width();
-					var div_height = $("#quizImgThumb").height();
+					//$("#quizForImgDIV").append("<div class='col-md-4'><div class='thumbnail' id ='quizImgThumb'></div></div>");
+					var div_width = $("#quizForImgDIV_" + i).width();
+					var div_height = $("#quizForImgDIV_" + i).height();
 					
 					if (div_width == 0) {
 						div_width = div_height;
@@ -143,7 +154,7 @@
 						div_height = div_width;
 					}
 					
-					$("#quizImgThumb").append("<img class='map' id='map' usemap='#face' src='" + url + "' width=" + div_width + " height=" + div_height + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+					$("#quizForImgDIV_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + url + "' width=" + div_width + " height=" + div_height + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
 
 					var position = face["position"];
 
@@ -152,7 +163,7 @@
 					var width = position["width"] / 100.0;
 					var height = position["height"] / 100.0;
 
-					var img = document.getElementById('map');
+					var img = document.getElementById("selImg_" + i);
 					var img_width = img.clientWidth;
 					var img_height = img.clientHeight;
 
@@ -163,9 +174,9 @@
 					var y2 = (img_height * center_y)
 							+ (img_height * height / 2);
 
-					var posHtml = "<map name='face'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
+					var posHtml = "<map name='faceSel_" + i + "'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
 
-					$("#quizDIV").append(posHtml);
+					$("#quizForImgDIV_" + i).append(posHtml);
 
 					$(function() {
 						$('.map').maphilight();
@@ -173,23 +184,34 @@
 
 				}
 				
-				$("#inputDIV")
+				$(function() {
+					$('.map').maphilight();
+				});
+				
+				var personNameHtml = "";
+				if (personName != null) {
+					personNameHtml = "value='" +personName + "'";
+				}
+				
+				$("#inputDIV").append("<div id='quizInputDIV' class='panel-body center-block text-center'></div>");
+				
+				$("#quizInputDIV")
 				.append("<div class='row'>" +
 						"<div class='col-lg-4 col-lg-offset-4'>" +
 						"<div class='input-group'>" +
 						"<input type='hidden' id='person_id' value='" + personId + "'>" +
-						"<input type='text' class='form-control' placeholder='이름' id='person_name'>" +
+						"<input type='text' class='form-control' placeholder='이름' id='person_name'" + personNameHtml + ">" +
 						"<div class='input-group-btn'>" +
 						"<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>" +
 						"관계 <span class='caret'></span>" +
 						"</button>" +
 						"<ul class='dropdown-menu' role='menu'>" +
-						"<li><a href='#' onclick=\"validateInput('본인', '" + personId + "')\">본인</a></li>" +
-						"<li><a href='#' onclick=\"validateInput('친구', '" + personId + "')\">친구</a></li>" +
-						"<li><a href='#' onclick=\"validateInput('회사동료', '" + personId + "')\">회사동료</a></li>" +
-						"<li><a href='#' onclick=\"validateInput('가족', '" + personId + "')\">가족</a></li>" +
-						"<li><a href='#' onclick=\"validateInput('애인', '" + personId + "')\">애인</a></li>" +
-						"<li><a href='#' onclick=\"validateInput('교수님', '" + personId + "')\">교수님</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('본인', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">본인</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('친구', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">친구</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('회사동료', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">회사동료</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('가족', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">가족</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('애인', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">애인</a></li>" +
+						"<li><a href='#' onclick=\"validateInput('교수님', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">교수님</a></li>" +
 						"</ul>" +
 						"</div></div></div> <!-- /.col-lg-6 -->" +
 						"</div> <!-- /.row --> ");
@@ -463,11 +485,11 @@
 			return true;
 		}
 
-		function validateInput(personRelation, personId) {
+		function validateInput(personRelation, personId, photoId, faceId) {
 			var personName = $("#person_name").val();
 			if (personName.length > 0 && personRelation.length > 0) {
 				$("#warningDIV").hide();
-				updatePersonInfo(personName, personRelation, personId);
+				updatePersonInfo(personName, personRelation, personId, photoId, faceId);
 			} else {
 				$("#warningDIV").html("사진속 인물의 이름과 본인과의 관계를 입력해주세요.");
 				$("#warningDIV").show();
@@ -496,7 +518,7 @@
 			}
 		}
 
-		function updatePersonInfo(personName, personRelation, personId) {
+		function updatePersonInfo(personName, personRelation, personId, photoId, faceId) {
 			$.ajax({
 				type : "POST",
 				dataType : "json",
@@ -504,7 +526,9 @@
 				data : {
 					person_id : personId,
 					person_name : personName,
-					relation : personRelation
+					relation : personRelation,
+					photo_id : photoId,
+					face_id : faceId
 				},
 				success : reqPostResponse,
 				error : errorResponse,
@@ -515,13 +539,13 @@
 
 		function showProgressBar() {
 			$("#pregressDIV").show();
-			$("#warningDIV").html("처리 중 입니다. 잠시만 기다려 주세요.");
-			$("#warningDIV").show();
+			$("#progressTextDIV").html("처리 중 입니다. 잠시만 기다려 주세요.");
+			$("#progressTextDIV").show();
 		}
 		
 		function closeProgressBar() {
 			$("#pregressDIV").hide();
-			$("#warningDIV").hide();
+			$("#progressTextDIV").hide();
 		}
 		
 		function reqPostResponse(data) {

@@ -28,6 +28,7 @@ public class GetNewImageService {
 			for (Face face : person.getFaces()) {
 				String imgUrl = face.getImgUrl();
 				JSONObject faceObj = new JSONObject();
+				faceObj.put("face_id", face.getFaceId());
 				faceObj.put("url", imgUrl);
 				JSONObject posObj = new JSONObject();
 				posObj.put("width", face.getPosition().getWidth());
@@ -41,6 +42,12 @@ public class GetNewImageService {
 			}
 			personObj.put("faces", facesArr);
 			personObj.put("person_id", person.getPersonId());
+			if (person.getPersonName() != null) {
+				personObj.put("person_name", person.getPersonName());
+			}
+			if (person.getPersonRelation() != null) {
+				personObj.put("person_relation", person.getPersonRelation());
+			}
 			personArr.put(personObj);
 		}
 		
