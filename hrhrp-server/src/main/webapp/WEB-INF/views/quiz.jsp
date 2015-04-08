@@ -88,6 +88,7 @@
 	
 				<div id="quizDIV" class="panel-heading"></div>
 				<div id="bodyDIV" class="panel-body">
+					<div id="quizResultDIV"></div>
 					<div id="inputDIV" class="row centered text-center"></div>
 					<div id="selectionDIV"></div>
 				</div>
@@ -117,6 +118,7 @@
 				$("#quizForImgDIV").html("");
 				$("#inputDIV").html("");
 				$("#selectionDIV").html("");
+				$("#quizResultDIV").html("");
 				$("#nextDIV").html("");
 				$("#pageTitleDIV").html("<h3>새롭게 발견된 사람 정보 입력</h3>");
 				
@@ -326,6 +328,7 @@
 			$("#quizForImgDIV").html("");
 			$("#inputDIV").html("");
 			$("#selectionDIV").html("");
+			$("#quizResultDIV").html("");
 			$("#nextDIV").html("");
 			$("#pageTitleDIV").html("<h3>퀴즈 풀이</h3>");
 			
@@ -472,6 +475,7 @@
 				$("#inputDIV").html("");
 				$("#nextDIV").html("");
 				$("#selectionDIV").html("");
+				$("#quizResultDIV").html("");
 			}
 		}
 
@@ -481,11 +485,11 @@
 			$(".selection_btn").addClass('disabled');
 			if (selection == answer) {
 				$("#selection_btn_" + selection).addClass('btn-primary');
-				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerCorrectDIV\" class=\"alert alert-success\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><strong> 정답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
+				$("#quizResultDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerCorrectDIV\" class=\"alert alert-success\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><strong> 정답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
 			} else {
 				//$("#selection_btn_" + answer).addClass('btn-primary');
 				$("#selection_btn_" + selection).addClass('btn-danger');
-				$("#selectionDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerIncorrectDIV\" class=\"alert alert-danger\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><strong> 오답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
+				$("#quizResultDIV").append("<a href='#' onclick=\"updateQuizInfo(" + quizId + ", " + selection + ")\"><div id=\"answerIncorrectDIV\" class=\"alert alert-danger\" role=\"alert\"><div class='row'><div class='col-xs-6'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><strong> 오답입니다!</strong></div><div class='col-xs-6 text-right'><strong>다음</strong><span class='glyphicon glyphicon-menu-right' aria-hidden='true'></span></div></div></div></a>");
 			}
 			return true;
 		}
