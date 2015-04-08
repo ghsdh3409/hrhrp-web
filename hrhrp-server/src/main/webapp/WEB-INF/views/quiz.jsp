@@ -154,7 +154,7 @@
 						div_height = div_width;
 					}
 					
-					$("#quizForImgDIV_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + url + "' width=" + div_width + " height=" + div_height + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+					$("#quizForImgDIV_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + url + "' width=" + div_width + " height=" + div_width + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
 
 					var position = face["position"];
 
@@ -163,10 +163,10 @@
 					var width = position["width"] / 100.0;
 					var height = position["height"] / 100.0;
 
-					var img = document.getElementById("selImg_" + i);
-					var img_width = img.clientWidth;
-					var img_height = img.clientHeight;
-
+					var img = $("#selImg_" + i);
+					var img_width = img.attr('width');
+					var img_height = img.attr('height');
+					
 					var x1 = (img_width * center_x) - (img_width * width / 2);
 					var y1 = (img_height * center_y)
 							- (img_height * height / 2);
@@ -359,7 +359,7 @@
 						div_height = div_width;
 					}
 					
-					$("#quizImgThumb").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "' width=" + div_width + " height=" + div_height + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+					$("#quizImgThumb").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "' width=" + div_width + " height=" + div_width + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
 					
 					var position = quiz_info["position"];
 
@@ -368,9 +368,9 @@
 					var width = position["width"] / 100.0;
 					var height = position["height"] / 100.0;
 
-					var img = document.getElementById('map');
-					var img_width = img.clientWidth;
-					var img_height = img.clientHeight;
+					var img = $("#selImg_" + i);
+					var img_width = img.attr('width');
+					var img_height = img.attr('height');
 
 					var x1 = (div_width * center_x) - (div_width * width / 2);
 					var y1 = (div_height * center_y)
