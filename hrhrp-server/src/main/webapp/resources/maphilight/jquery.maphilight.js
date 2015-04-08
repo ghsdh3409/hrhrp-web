@@ -245,11 +245,11 @@
 			wrap = $('<div></div>').css({
 				display:'block',
 				background:'url("'+this.src+'") ',
-				"background-size": this.width + "px " + this.height + "px",
+				"background-size": this.width + "px " + this.width + "px", //DAEHOONKIM FIX SQUARE FOR IE
 				position:'relative',
 				padding:0,
 				width:this.width,
-				height:this.height
+				height:this.width //DAEHOONKIM FIX SQUARE FOR IE
 				});
 			if(options.wrapClass) {
 				if(options.wrapClass === true) {

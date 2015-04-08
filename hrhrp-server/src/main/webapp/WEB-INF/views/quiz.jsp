@@ -359,7 +359,7 @@
 						div_height = div_width;
 					}
 					
-					$("#quizImgThumb").append("<img class='map' id='map' usemap='#face' src='" + quiz_image + "' width=" + div_width + " height=" + div_width + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
+					$("#quizImgThumb").append("<img class='map' id='quizImg' usemap='#faceQuiz' src='" + quiz_image + "' width=" + div_width + " height=" + div_width + ">");// +"<input type='radio' name='selection' value=" + optionNum + ">");
 					
 					var position = quiz_info["position"];
 
@@ -368,7 +368,7 @@
 					var width = position["width"] / 100.0;
 					var height = position["height"] / 100.0;
 
-					var img = $("#selImg_" + i);
+					var img = $("#quizImg");
 					var img_width = img.attr('width');
 					var img_height = img.attr('height');
 
@@ -379,7 +379,7 @@
 					var y2 = (div_height * center_y)
 							+ (div_height * height / 2);
 
-					var posHtml = "<map name='face'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
+					var posHtml = "<map name='faceQuiz'> <area shape='rect' coords='" + x1 + "," + y1 + "," + x2 + "," + y2 + "' data-maphilight='{\"alwaysOn\":true}'> </map>";
 
 					$("#quizImgThumb").append(posHtml);
 
@@ -420,7 +420,7 @@
 								div_height = div_width;
 							}
 							
-							$("#optionThumb_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_height + ">");
+							$("#optionThumb_" + i).append("<img class='map' id='selImg_" + i + "' usemap='#faceSel_" + i + "' src='" + option + "' width=" + div_width + " height=" + div_width + ">");
 							$("#optionThumb_" + i).append("<div class='caption'><a id='selection_btn_" + optionNum + "' href='#' class='btn btn-default btn-block selection_btn' role='button' onclick='validateAnswer(" + quizId + ", " + optionNum + ", " + answer + ")'>" + "선택" + "</a></div>");
 							
 							var position = selection["position"];
@@ -431,10 +431,10 @@
 								var center_y = position["center_y"] / 100.0;
 								var width = position["width"] / 100.0;
 								var height = position["height"] / 100.0;
-	
-								var img = document.getElementById('selImg_' + i);
-								var img_width = img.clientWidth;
-								var img_height = img.clientHeight;
+									
+								var img = $('#selImg_' + i);
+								var img_width = img.attr('width');
+								var img_height = img.attr('height');
 	
 								var x1 = (div_width * center_x)
 										- (div_width * width / 2);
