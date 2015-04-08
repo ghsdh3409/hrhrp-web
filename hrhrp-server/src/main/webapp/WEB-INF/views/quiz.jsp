@@ -397,6 +397,11 @@
 				for (var i = 0; i < selections.length; i++) {
 					var selection = selections[i];
 					var option = selection["selection"];
+					
+					if (option == null) {
+						continue;
+					}
+					
 					var optionNum = selection["number"];
 					var type = selection["type"];
 
