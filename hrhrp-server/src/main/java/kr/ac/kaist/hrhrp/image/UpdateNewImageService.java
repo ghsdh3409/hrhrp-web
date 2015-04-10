@@ -12,4 +12,10 @@ public class UpdateNewImageService {
 		ex.close();
 
 	}
+	
+	public void updateUnknownPerson(String photoId, String personId) {
+		Extractor ex = new Extractor();
+		ex.updateUnknownPerson(photoId, personId);
+		ex.close();
+	}
 }

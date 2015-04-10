@@ -26,7 +26,7 @@ public class GenerateQuizController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		
-		JSONObject genQuizObj = generateQuizService.generateQuiz(10, username, 0.0f);
+		JSONObject genQuizObj = generateQuizService.generateQuiz(10, username, 0.5f);
 		
 		model.addAttribute("generateQuiz", genQuizObj.toString());
 		return "gen_quiz";

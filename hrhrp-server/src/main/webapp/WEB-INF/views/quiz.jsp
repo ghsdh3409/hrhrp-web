@@ -200,6 +200,8 @@
 				$("#quizInputDIV")
 				.append("<div class='row'>" +
 						"<div class='col-lg-4 col-lg-offset-4'>" +
+						"<form class='form-inline'>" +
+						"<div class='form-group' style=\"margin-right: 4px;\">" +
 						"<div class='input-group'>" +
 						"<input type='hidden' id='person_id' value='" + personId + "'>" +
 						"<input type='text' class='form-control' placeholder='이름' id='person_name'" + personNameHtml + ">" +
@@ -215,7 +217,10 @@
 						"<li><a href='#' onclick=\"validateInput('애인', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">애인</a></li>" +
 						"<li><a href='#' onclick=\"validateInput('교수님', '" + personId + "', '" + photoId + "', '" + faceId + "'" + ")\">교수님</a></li>" +
 						"</ul>" +
-						"</div></div></div> <!-- /.col-lg-6 -->" +
+						"</div></div></div>" +
+						"<button class='btn btn-default' type='button' onclick=\"validateUnknownPersonInput('" + personId + "', '" + photoId + "')\">모름 <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></button>" +
+						"</form>" +
+						"</div> <!-- /.col-lg-6 -->" +
 						"</div> <!-- /.row --> ");
 				
 				personIdx = personIdx + 1;
@@ -504,6 +509,16 @@
 				$("#warningDIV").show();
 			}
 		}
+		
+		function validateUnknownPersonInput(personId, photoId) {
+			if (personId.length > 0 && photoId.length > 0) {
+				$("#warningDIV").hide();
+				updateUnknownPersonInfo(personId, photoId, true);
+			} else {
+				$("#warningDIV").html("사진 정보 또는 사람 정보가 존재하지 않습니다 . 관리자에게 문의해주세요.");
+				$("#warningDIV").show();
+			}
+		}
 				
 		function updateQuizInfo(quizId, solved) {
 			$.ajax({
@@ -527,6 +542,23 @@
 			}
 		}
 
+		function updateUnknownPersonInfo(personId, photoId, isUnknown) {
+			$.ajax({
+				type : "POST",
+				dataType : "json",
+				url : "api/update_person",
+				data : {
+					person_id : personId,
+					photo_id : photoId,
+					is_unknown : isUnknown
+				},
+				success : reqPostResponse,
+				error : errorResponse,
+				beforeSend : showProgressBar,
+				complete : closeProgressBar
+			});
+		}
+		
 		function updatePersonInfo(personName, personRelation, personId, photoId, faceId) {
 			$.ajax({
 				type : "POST",
