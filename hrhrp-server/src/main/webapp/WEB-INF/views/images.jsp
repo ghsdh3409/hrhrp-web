@@ -181,7 +181,7 @@
 			 <p>
 			  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			  <span class="sr-only"></span>
-			  이미지는 익일 새벽 4시에 분석되며, 분석이 완료 된 후에 퀴즈 서비스를 사용하 실 수 있습니다.
+			  이미지는 익일 새벽 2시에 분석되며, 분석이 완료 된 후에 퀴즈 서비스를 사용하 실 수 있습니다.
 			 </p>
 			</div>
 			

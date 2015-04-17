@@ -15,7 +15,7 @@ public class ImageFilterBackgroundService {
 		Calendar cal = Calendar.getInstance();
 		
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		int scheduledHour = 4;		
+		int scheduledHour = 2;		
 		
 		
 		if (scheduledHour < hour && hour <= 23) { //If now is after scheduledHour, task will be occurred at tomorrow.
