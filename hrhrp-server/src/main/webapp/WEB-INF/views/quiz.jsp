@@ -476,8 +476,18 @@
 
 			} else {
 				$("#quizDIV").html("모든 퀴즈를 풀었습니다. 수고하셨습니다.");
+				
+				var diaryHtml = "<div class=\"col-lg-12\"><div class=\"input-group\">" +
+				<!--"<textarea id=\"diaryInput\" class=\"form-control\" row = 2 maxlength = 255 placeholder=\"한 줄로 실험 다이어리를 작성해주세요.\"></textarea>" + -->
+				"<input id=\"diaryInput\" type=\"text\" class=\"form-control\" maxlength = 1000 placeholder=\"실험 다이어리를 작성해주세요. (최대길이 1000)\">" +
+				"<span class=\"input-group-btn\">"+
+				"<button class=\"btn btn-default\" type=\"button\" onclick='uploadDiary()'>작성</button>" +
+				"</span>"+
+				"</div>" + 
+				"</div>";
+				
 				$("#quizForImgDIV").html("");
-				$("#inputDIV").html("");
+				$("#inputDIV").html(diaryHtml);
 				$("#nextDIV").html("");
 				$("#selectionDIV").html("");
 				$("#quizResultDIV").html("");
@@ -577,7 +587,39 @@
 				complete : closeProgressBar
 			});
 		}
+		
+		function uploadDiary(diary) {
+			var diary = $("#diaryInput").val();
+			if (diary.length == 0) {
+				$("#warningDIV").html("다이어리를 입력해주세요.");
+				$("#warningDIV").show();
+			} else {
+				$("#warningDIV").hide();
+				
+				$.ajax({
+					type : "POST",
+					dataType : "json",
+					url : "api/upload_diary",
+					data : {
+						diary : diary
+					},
+					success : reqDiaryPostResponse,
+					error : errorResponse,
+					beforeSend : showProgressBar,
+					complete : closeProgressBar
+				});
+			}			
+		}
 
+		function reqDiaryPostResponse(data) {
+			if (data["code"] == 1) {
+				$("#inputDIV").html("감사합니다!");
+			} else {
+				$("#warningDIV").html("요청 실패! 다시 시도해주세요. <br/>" + data["msg"]);
+				$("#warningDIV").show();
+			}
+		}
+		
 		function showProgressBar() {
 			$("#pregressDIV").show();
 			$("#progressTextDIV").html("처리 중 입니다. 잠시만 기다려 주세요.");
