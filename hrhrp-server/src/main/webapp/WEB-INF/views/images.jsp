@@ -142,7 +142,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/" />">HRHRP</a>
+				<a class="navbar-brand" href="<c:url value="/" />">REMEMBER</a>
 			</div>
 
 			<div id="navbar" class="collapse navbar-collapse">

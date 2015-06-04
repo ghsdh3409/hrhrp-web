@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>HRHRP</title>
+<title>REMEMBER</title>
 
 <!-- Bootstrap -->
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/" />">HRHRP</a>
+				<a class="navbar-brand" href="<c:url value="/" />">REMEMBER</a>
 			</div>
 
 			<div id="navbar" class="collapse navbar-collapse">
@@ -90,7 +90,7 @@
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container">
-				<h1>HRHRP</h1>
+				<h1>REMEMBER</h1>
 				<p>
 					일상으로부터 당신의 기억을 지켜내세요. <br /> 본 서비스는 회상요법을 통해서 치매를 예방하고 환자의 상태를 호전
 					시킬 수 있습니다.
@@ -134,7 +134,7 @@
 					</p>
 				</div>
 				<div class="col-md-4">
-					<h2>Analyzing</h2>
+					<h2>Analysis</h2>
 					<p>일상과 관련된 퀴즈를 만들어 내기 위해서 사진들을 분석합니다. 일상이 기록된 사진들로 부터 만났던 사람,
 						물건, 장소, 날씨 등을 추출합니다. 추출된 정보를 이용하여 사용자의 회상을 도울 수 있는 사진들을 선별하여 퀴즈를
 						생성합니다.</p>
