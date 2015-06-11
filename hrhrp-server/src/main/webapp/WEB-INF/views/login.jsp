@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>REMEMBER</title>
+<title>Demento</title>
 
 <!-- Bootstrap -->
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/" />">REMEMBER</a>
+				<a class="navbar-brand" href="<c:url value="/" />">Demento</a>
 			</div>
 
 			<div id="navbar" class="collapse navbar-collapse">
@@ -64,12 +64,12 @@
 								name="password_signin">
 						</div>			
 						<!-- <a href='#' class='btn btn-success' role='button' onclick='requestSignIn()'>로그인</a> -->
-						<input type="checkbox" id="j_remember" name="_spring_security_remember_me" value="Yes" style="display:none;" checked>
+						<input type="checkbox" id="j_Demento" name="_spring_security_Demento_me" value="Yes" style="display:none;" checked>
 						<button type="submit" class="btn btn-success">로그인</button> 
 					</form>
 				</security:authorize>
 				
-				<!-- http://outbottle.com/spring-3-security-custom-login-form-with-remember-me/ -->
+				<!-- http://outbottle.com/spring-3-security-custom-login-form-with-Demento-me/ -->
 				
 				<security:authorize access="isAuthenticated()">
 					<ul class="nav navbar-nav navbar-right">
@@ -90,7 +90,7 @@
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container">
-				<h1>REMEMBER</h1>
+				<h1>Demento</h1>
 				<p>
 					일상으로부터 당신의 기억을 지켜내세요. <br /> 본 서비스는 회상요법을 통해서 치매를 예방하고 환자의 상태를 호전
 					시킬 수 있습니다.
